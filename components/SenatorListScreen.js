@@ -3,9 +3,12 @@ import {
     StyleSheet,
     Text,
     View,
-    FlatList
+    FlatList,
+    Linking,
+    //ScrollView
 } from 'react-native';
 import axios from 'axios';
+import Button from './Button';
 //import SenatorDetailScreen from './SenatorDetailScreen';
 
 class SenatorListScreen extends Component {
@@ -18,7 +21,10 @@ class SenatorListScreen extends Component {
 
     /*renderSenators() {
         return this.state.senators.map(senator =>
-            <SenatorDetailScreen key={senator.person.name} lastname={senator.person.lastname} birthday={senator.person.birthday} />
+            <SenatorDetailScreen key={senator.person.name}
+                                 lastname={senator.person.lastname}
+                                 birthday={senator.person.birthday}
+                                 url={senator.person.link} />
         );
     }
 
@@ -41,18 +47,21 @@ class SenatorListScreen extends Component {
         return (
             <View style={styles.container} >
                 <Text style={styles.h2text}>
-                    U.S. Senators....
+                    U.S. Senators...
                 </Text>
                 <FlatList
                     data={this.state.senators}
                     showsVerticalScrollIndicator={false}
                     renderItem={({item}) =>
-                        <View style={styles.flatview}>
+                        <View style={styles.flatview} onPress={() => console.log("hi")}>
                             <Text style={styles.name}>{item.person.lastname}</Text>
                             <Text style={styles.bday}>{item.person.birthday}</Text>
+                            <Button onPress={() => Linking.openURL(item.person.link)}>
+                                Visit website!
+                            </Button>
                         </View>
                     }
-                    keyExtractor={item => item.person.lastname}
+                    keyExtractor={item => item.person.birthday}
                 />
             </View>
         );
@@ -62,6 +71,7 @@ class SenatorListScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 10,
         marginTop: 50,
         justifyContent: 'center',
         alignItems: 'center',
@@ -74,14 +84,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     flatview: {
-        justifyContent: 'center',
+        width: '92%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
         paddingTop: 30,
         borderRadius: 2,
     },
     name: {
+        flex: 1,
         fontSize: 18
     },
     bday: {
+        flex: 1,
         color: 'red'
     }
 

@@ -1,12 +1,19 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Linking } from 'react-native';
+import Button from './Button';
 
 
-const SenatorDetailScreen = (props) => {
+const SenatorDetailScreen = ({ url, lastname, birthday }) => {
+
+
     return (
         <View>
-            <Text>{props.lastname}</Text>
-            <Text>{props.birthday}</Text>
+            <Text>{lastname}</Text>
+            <Text>{birthday}</Text>
+
+            <Button onPress={() => Linking.openURL(url)}>
+                Visit site!
+            </Button>
         </View>
     );
 };
